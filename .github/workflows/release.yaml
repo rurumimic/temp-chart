@@ -9,6 +9,8 @@ jobs:
     steps:
       - name: Check out the repo
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
       - name: Configure Git
         run: |
           git config user.name "$GITHUB_ACTOR"
@@ -17,11 +19,6 @@ jobs:
         uses: azure/setup-helm@v1
         with:
           version: v3.5.2
-      - name: Latest Tag
-        run: |
-          git fetch --tags > /dev/null 2>&1
-          git describe --tags --abbrev=0
-          git diff --find-renames --name-only "v0.0.1" -- helm
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1.1.0
         with:
