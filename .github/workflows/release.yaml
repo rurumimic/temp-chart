@@ -20,7 +20,7 @@ jobs:
       - name: Latest Tag
         run: |
           git fetch --tags > /dev/null 2>&1
-          git diff --find-renames --name-only "v0.0.1" -- .
+          git describe --tags --abbrev=0 2> /dev/null
           git diff --find-renames --name-only "v0.0.1" -- helm
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1.1.0
