@@ -17,6 +17,21 @@ jobs:
         uses: azure/setup-helm@v1
         with:
           version: v3.5.2
+      - name: Latest Tag
+        run: |
+          local latest_tag
+          lookup_latest_tag() {
+            git fetch --tags > /dev/null 2>&1
+
+            if ! git describe --tags --abbrev=0 2> /dev/null; then
+              git rev-list --max-parents=0 --first-parent HEAD
+            fi
+          }
+          latest_tag=$(lookup_latest_tag)
+          changed_files=$(git diff --find-renames --name-only "$latest_tag" -- .)
+          echo $changed_files
+          changed_files=$(git diff --find-renames --name-only "$latest_tag" -- helm)
+          echo $changed_files
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1.1.0
         with:
