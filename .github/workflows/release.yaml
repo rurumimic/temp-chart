@@ -28,9 +28,9 @@ jobs:
           }
           latest_tag=$(lookup_latest_tag)
           changed_files=$(git diff --find-renames --name-only "$latest_tag" -- .)
-          echo $changed_files
+          echo "$changed_files"
           changed_files=$(git diff --find-renames --name-only "$latest_tag" -- helm)
-          echo $changed_files
+          echo "$changed_files"
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1.1.0
         with:
