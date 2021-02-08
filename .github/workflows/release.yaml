@@ -19,7 +19,6 @@ jobs:
           version: v3.5.2
       - name: Latest Tag
         run: |
-          local latest_tag
           lookup_latest_tag() {
             git fetch --tags > /dev/null 2>&1
 
