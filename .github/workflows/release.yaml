@@ -19,9 +19,8 @@ jobs:
           version: v3.5.2
       - name: Latest Tag
         run: |
-          git rev-list --max-parents=0 --first-parent HEAD
-          git diff --find-renames --name-only "$latest_tag" -- .
-          git diff --find-renames --name-only "$latest_tag" -- helm
+          git diff --find-renames --name-only "v0.0.1" -- .
+          git diff --find-renames --name-only "v0.0.1" -- helm
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1.1.0
         with:
